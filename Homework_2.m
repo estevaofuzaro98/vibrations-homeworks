@@ -12,7 +12,7 @@ set(groot,'defaultTextInterpreter','latex');
 %% VARIAVEIS
 m = 1; %[kg]
 k = 1e4; %[N/m]
-z = [0.001 0.01 0.1]; %[adimensional]
+z = [0.001 0.01 0.1]; %zeta [adimensional]
 t = 0:0.001:100; %[s]
 f = 0:0.0001:60; %[Hz]
 w = 2*pi*f; %[rad/s]
@@ -22,7 +22,7 @@ figc = 1; % contador de figuras
 wn = sqrt(k/m); %[rad/s]
 fn = wn/(2*pi); %[Hz]
 wd = wn*sqrt(1-z.^2); %[rad/s]
-c = z*2*sqrt(k*m); %[Ns/m]
+c = z*2*sqrt(k*m); %[N.s/m]
 
 %% 1º METODO PARA ESTIMAR AMORTECIMENTO - DOMINIO DO TEMPO
 % OBTENCAO DE h(t)

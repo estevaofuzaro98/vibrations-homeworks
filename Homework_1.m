@@ -12,7 +12,7 @@ set(groot,'defaultTextInterpreter','latex');
 %% VARIAVEIS
 m = 1; %[kg]
 k = 1e4; %[N/m]
-z = [0.1 0.01 0.001]; %[adimensional]
+z = [0.1 0.01 0.001]; %zeta [adimensional]
 t = 0:0.001:100; %[s]
 f = 0:0.001:1000; %[Hz]
 w = 2*pi*f; %[rad/s]
@@ -21,7 +21,7 @@ figc = 1; % contador de figuras
 %% PARAMETROS DO SISTEMA
 wn = sqrt(k/m); %[rad/s]
 wd = wn*sqrt(1-z.^2); %[rad/s]
-c = z*2*sqrt(k*m); %[Ns/m]
+c = z*2*sqrt(k*m); %[N.s/m]
 
 %% IRF [h(t)] COM ENVELOPE E FRF [H(jw)] - RECEPTANCIA
 ht = []; env = []; Hjw = []; % Criando os vetores
