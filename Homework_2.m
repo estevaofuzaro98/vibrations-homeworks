@@ -1,6 +1,6 @@
 %% MECHANICAL VIBRATIONS (2021/1) - HOMEWORK #2
 % Docente: Michael John Brennan
-% Discente: Estevão Fuzaro de Almeida
+% Discente: Estevao Fuzaro de Almeida
 % Data: 18/03/2021
 
 % INICIALIZACAO
@@ -59,7 +59,7 @@ for st=1:3
     title(['$\zeta = ', num2str(z(st)), ' $'],'FontWeight','normal');
     legend('$\ln \left| \mathcal{H}\left[h(t)\right] \right|$','Part of data')
     grid on, grid minor
-    set(gca,'fontsize',18)
+    set(gca,'fontsize',18,'XColor','k','YColor','k','ZColor','k','GridColor','k')
 end
 for st=1:3
     subplot(2,3,st+3)
@@ -87,7 +87,7 @@ for st=1:3
     title(['$\zeta = ', num2str(z(st)), ' $'],'FontWeight','normal');
     legend('$\ln \left| \mathcal{H}\left[h(t)\right] \right|$','Part of data')
     grid on, grid minor
-    set(gca,'fontsize',18)
+    set(gca,'fontsize',18,'XColor','k','YColor','k','ZColor','k','GridColor','k')
     % ESTIMANDO ZETA PELO TEMPO
         grad = polyfit(tp,log(Xp),1);
         z_est_time(st) = -real(grad(1))/wn; %#ok<*SAGROW>
@@ -110,7 +110,7 @@ for st=1:3
     ylabel('$\left| \frac{X}{F} \right|$')
     title(['$\zeta = ', num2str(z(st)), ' $'],'FontWeight','normal'), 
     grid on, grid minor
-    set(gca,'fontsize',18)
+    set(gca,'fontsize',18,'XColor','k','YColor','k','ZColor','k','GridColor','k')
     if st==1
         xlim([15 19])
         plot(f,abs(Hjw(st,:)),'m','linewidth', 2.5), hold on

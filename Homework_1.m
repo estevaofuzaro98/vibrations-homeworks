@@ -1,6 +1,6 @@
 %% MECHANICAL VIBRATIONS (2021/1) - HOMEWORK #1
 % Docente: Michael John Brennan
-% Discente: Estevão Fuzaro de Almeida
+% Discente: Estevao Fuzaro de Almeida
 % Data: 11/03/2021
 
 % INICIALIZACAO
@@ -35,7 +35,13 @@ end
 figure(figc); figc = figc + 1;
 for st=1:3
     subplot(1,3,st)
-    plot(t,ht(st,:),'b','linewidth', 1.2), hold on
+    if st==1
+        plot(t,ht(st,:),'m','linewidth', 1.2), hold on
+    elseif st==2
+        plot(t,ht(st,:),'k','linewidth', 1.2), hold on
+    else
+        plot(t,ht(st,:),'b','linewidth', 1.2), hold on
+    end
     plot(t,env(st,:),'--r','linewidth', 1.6)
     plot(t,-env(st,:),'--r','linewidth', 1.6)
     xlabel('$t$ [s]')
