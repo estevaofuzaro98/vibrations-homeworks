@@ -96,7 +96,7 @@ for st=1:3
     end
     plot(f,rad2deg(-pi/2)*ones(1,length(w)),'--r','linewidth', 1.2), hold on
     xlabel('$f$ [Hz]')
-    ylabel('$\phi$ [$^{\circ}$]')
+    ylabel('Receptance $\phi$ [$^{\circ}$]')
     legend('$\angle \left(X/F\right)$','Location','northeast','fontsize',15)
     title(['$\zeta = ', num2str(z(st)),' $'],'FontWeight','normal'), 
     grid on, grid minor, xlim([0 50]), ylim([-185 5])
@@ -123,7 +123,7 @@ plot(f,rad2deg(angle(Hjw(2,:))),'k','linewidth', 1.5), hold on % Zeta = 0.01
 plot(f,rad2deg(angle(Hjw(3,:))),'b','linewidth', 1.5), hold on % Zeta = 0.001
 plot(f,rad2deg(-pi/2)*ones(1,length(w)),'--r','linewidth', 1.2), hold on
 xlabel('$f$ [Hz]')
-ylabel('$\phi$ [$^{\circ}$]')
+ylabel('Receptance $\phi$ [$^{\circ}$]')
 legend(['$\angle \left( X/F \right), \, \zeta = ', num2str(z(1)),' $'],['$\angle \left( X/F \right), \, \zeta = ', num2str(z(2)),' $'],['$\angle \left( X/F \right), \, \zeta = ', num2str(z(3)),' $'],'Location','northeast','fontsize',15)
 grid on, grid minor, xlim([0 50]), ylim([-185 5])
 set(gca,'fontsize',18,'Ytick',[-180 -135 -90 -45 0],'XColor','k','YColor','k','ZColor','k','GridColor','k')
@@ -301,7 +301,7 @@ for st=1:3
     end
     plot(f,rad2deg(0)*ones(1,length(w)),'--r','linewidth', 1.2), hold on
     xlabel('$f$ [Hz]')
-    ylabel('$\phi$ [$^{\circ}$]')
+    ylabel('Mobility $\phi$ [$^{\circ}$]')
     legend('$\angle{\left(\dot{X}/F\right)}$','Location','northeast','fontsize',15)
     title(['$\zeta = ', num2str(z(st)),' $'],'FontWeight','normal'), 
     grid on, grid minor, xlim([0 50]), ylim([-95 95])
@@ -317,7 +317,7 @@ loglog(f,abs(Hm(3,:)),'b','linewidth', 1.5), hold on % Zeta = 0.001
 loglog(f,abs(1i*w)/k.*ones(1,length(w)),'--r','linewidth', 1.2), hold on % Stiffness
 loglog(f,abs(1i*w)./(w.^2*m),'--','linewidth', 1.2), hold on % Mass
 xlabel('$f$ [Hz]')
-ylabel('Mobility [m/N]')
+ylabel('Mobility [m/N.s]')
 legend({['$\left| \dot{X}/F \right|, \, \zeta = ', num2str(z(1)),' $'],['$\left| \dot{X}/F \right|, \, \zeta = ', num2str(z(2)),' $'],['$\left| \dot{X}/F \right|, \, \zeta = ', num2str(z(3)),' $'],'Stiffness Line','Mass Line'},'Location','northeast','fontsize',15)
 grid on; grid minor;
 axis([1e-1 1e3 1e-4 1e1])
@@ -329,7 +329,7 @@ plot(f,rad2deg(angle(Hm(2,:))),'k','linewidth', 1.5), hold on % Zeta = 0.01
 plot(f,rad2deg(angle(Hm(3,:))),'b','linewidth', 1.5), hold on % Zeta = 0.001
 plot(f,rad2deg(0)*ones(1,length(w)),'--r','linewidth', 1.2), hold on
 xlabel('$f$ [Hz]')
-ylabel('$\phi$ [$^{\circ}$]')
+ylabel('Mobility $\phi$ [$^{\circ}$]')
 legend(['$\angle{\left( \dot{X}/F \right)}, \, \zeta = ', num2str(z(1)),' $'],['$\angle \left( \dot{X}/F \right), \, \zeta = ', num2str(z(2)),' $'],['$\angle \left( \dot{X}/F \right), \, \zeta = ', num2str(z(3)),' $'],'Location','northeast','fontsize',15)
 grid on, grid minor, xlim([0 50]), ylim([-95 95])
 set(gca,'fontsize',18,'Ytick',[-90 -45 0 45 90],'XColor','k','YColor','k','ZColor','k','GridColor','k')
@@ -510,7 +510,7 @@ for st=1:3
     end
     plot(f,rad2deg(pi/2)*ones(1,length(w)),'--r','linewidth', 1.2), hold on
     xlabel('$f$ [Hz]')
-    ylabel('$\phi$ [$^{\circ}$]')
+    ylabel('Accelerance $\phi$ [$^{\circ}$]')
     legend('$\angle{\left(\ddot{X}/F\right)}$','Location','northeast','fontsize',15)
     title(['$\zeta = ', num2str(z(st)),' $'],'FontWeight','normal'), 
     grid on, grid minor, xlim([0 50]), ylim([-5 185])
@@ -526,7 +526,7 @@ loglog(f,abs(Ha(3,:)),'b','linewidth', 1.5), hold on % Zeta = 0.001
 loglog(f,abs((1i*w).^2)/k.*ones(1,length(w)),'--r','linewidth', 1.2), hold on % Stiffness
 loglog(f,abs((1i*w).^2)./(w.^2*m),'--','linewidth', 1.2), hold on % Mass
 xlabel('$f$ [Hz]')
-ylabel('Mobility [m/N]')
+ylabel('Accelerance [m/N.s$^2$]')
 legend({['$\left| \ddot{X}/F \right|, \, \zeta = ', num2str(z(1)),' $'],['$\left| \ddot{X}/F \right|, \, \zeta = ', num2str(z(2)),' $'],['$\left| \ddot{X}/F \right|, \, \zeta = ', num2str(z(3)),' $'],'Stiffness Line','Mass Line'},'Location','southeast','fontsize',15)
 grid on; grid minor;
 axis([1e0 1e3 1e-3 1e3])
@@ -538,7 +538,7 @@ plot(f,rad2deg(angle(Ha(2,:))),'k','linewidth', 1.5), hold on % Zeta = 0.01
 plot(f,rad2deg(angle(Ha(3,:))),'b','linewidth', 1.5), hold on % Zeta = 0.001
 plot(f,rad2deg(pi/2)*ones(1,length(w)),'--r','linewidth', 1.2), hold on
 xlabel('$f$ [Hz]')
-ylabel('$\phi$ [$^{\circ}$]')
+ylabel('Accelerance $\phi$ [$^{\circ}$]')
 legend(['$\angle{\left( \ddot{X}/F \right)}, \, \zeta = ', num2str(z(1)),' $'],['$\angle \left( \ddot{X}/F \right), \, \zeta = ', num2str(z(2)),' $'],['$\angle \left( \ddot{X}/F \right), \, \zeta = ', num2str(z(3)),' $'],'Location','northeast','fontsize',15)
 grid on, grid minor, xlim([0 50]), ylim([-5 185])
 set(gca,'fontsize',18,'Ytick',[0 45 90 135 180],'XColor','k','YColor','k','ZColor','k','GridColor','k')
