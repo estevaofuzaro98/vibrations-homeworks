@@ -16,7 +16,6 @@ z = [0.001 0.01 0.1]; %zeta [adimensional]
 t = 0:0.001:100; %[s]
 f = 0:0.0001:60; %[Hz]
 w = 2*pi*f; %[rad/s]
-figc = 1; % contador de figuras
 
 %% PARAMETROS DO SISTEMA
 wn = sqrt(k/m); %[rad/s]
@@ -28,10 +27,10 @@ c = z*2*sqrt(k*m); %[N.s/m]
 % OBTENCAO DE h(t)
 ht = []; % Criando os vetores
 for st=1:3
-    ht = [ht; 1/(m*wd(st))*exp(-z(st)*wn*t).*sin(wd(st)*t)]; %#ok<*AGROW>
+    ht(st,:) = 1/(m*wd(st))*exp(-z(st)*wn*t).*sin(wd(st)*t); %#ok<*SAGROW>
 end
 % APLICANDO TRANSFORMADA DE HILBERT
-figure(figc); figc = figc + 1; X = [];
+figure; X = [];
 for st=1:3
     subplot(2,3,st)
     X(st,:) = hilbert(ht(st,:)); % HILBERT
@@ -103,7 +102,7 @@ end
 for st=1:3
     maximum = max(abs(Hjw(st,:)));
     maximum_sqrt2 = (max(abs(Hjw(st,:)))/sqrt(2));
-    fig = figure(figc); figc = figc + 1;
+    figure
     plot(f,maximum*ones(1,length(w)),'r--','linewidth', 1.5), hold on
     plot(f,maximum_sqrt2*ones(1,length(w)),'r--','linewidth', 1.5), hold on
     xlabel('$f$ [Hz]')

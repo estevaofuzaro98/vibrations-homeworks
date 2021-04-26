@@ -16,7 +16,6 @@ z = [0.1 0.01 0.001]; %zeta [adimensional]
 t = 0:0.001:100; %[s]
 f = 0:0.001:1000; %[Hz]
 w = 2*pi*f; %[rad/s]
-figc = 1; % contador de figuras
 
 %% PARAMETROS DO SISTEMA
 wn = sqrt(k/m); %[rad/s]
@@ -24,15 +23,15 @@ wd = wn*sqrt(1-z.^2); %[rad/s]
 c = z*2*sqrt(k*m); %[N.s/m]
 
 %% IRF [h(t)] COM ENVELOPE E FRF [H(jw)] - RECEPTANCIA
-ht = []; env = []; Hjw = []; % Criando os vetores
+ht = []; Hjw = []; env = []; % Criando os vetores
 for st=1:3
-    ht = [ht; 1/(m*wd(st))*exp(-z(st)*wn*t).*sin(wd(st)*t)]; %#ok<*AGROW>
-    env = [env; 1/(m*wd(st))*exp(-z(st)*wn*t)];
-    Hjw = [Hjw; 1./(k-w.^2*m+1i*w*c(st))];
+    ht(st,:) = 1/(m*wd(st))*exp(-z(st)*wn*t).*sin(wd(st)*t); %#ok<*SAGROW>
+    Hjw(st,:) = 1./(k-w.^2*m+1i*w*c(st));
+    env(st,:) = 1/(m*wd(st))*exp(-z(st)*wn*t);
 end
 
 %% h(t) COM ENVELOPE PELO TEMPO 
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -56,12 +55,12 @@ for st=1:3
     else
         axis([0 100 -1e-2 1e-2])
     end
-    set(gca,'TickLabelInterpreter','latex','fontsize',18,'XColor','k','YColor','k','ZColor','k','GridColor','k')
+    set(gca,'fontsize',18,'XColor','k','YColor','k','ZColor','k','GridColor','k')
 end
 
 %% RECEPTANCIA
 % ABS(X/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -84,7 +83,7 @@ for st=1:3
 end
 
 % ANGULO(X/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -104,7 +103,7 @@ for st=1:3
 end
 
 % ABS(X/F) PELA FREQUENCIA E ANGULO(X/F) PELA FREQUENCIA - JUNTOS
-figure(figc); figc = figc + 1;
+figure
 subplot(1,2,1)
 loglog(f,abs(Hjw(1,:)),'m','linewidth', 1.5), hold on % Zeta = 0.1
 loglog(f,abs(Hjw(2,:)),'k','linewidth', 1.5), hold on % Zeta = 0.01
@@ -129,7 +128,7 @@ grid on, grid minor, xlim([0 50]), ylim([-185 5])
 set(gca,'fontsize',18,'Ytick',[-180 -135 -90 -45 0],'XColor','k','YColor','k','ZColor','k','GridColor','k')
 
 % REAL(X/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st == 1
@@ -151,7 +150,7 @@ for st=1:3
 end
 
 % IM(X/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st == 1
@@ -176,7 +175,7 @@ for st=1:3
 end
 
 % REAL(X/F) PELA FREQUENCIA E IM(X/F) PELA FREQUENCIA - JUNTOS
-figure(figc); figc = figc + 1;
+figure
 subplot(1,2,1)
 plot(f,real(Hjw(1,:)),'m','linewidth', 1.7), hold on % Zeta = 0.1
 plot(f,real(Hjw(2,:)),'k','linewidth', 1.7), hold on % Zeta = 0.01
@@ -199,7 +198,7 @@ grid on, grid minor
 set(gca,'fontsize',18,'XColor','k','YColor','k','ZColor','k','GridColor','k')
 
 % NYQUIST - SEPARADOS
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -218,7 +217,7 @@ for st=1:3
 end
 
 % NYQUIST - JUNTOS
-figure(figc); figc = figc + 1;
+figure
 plot(real(Hjw(1,:)),imag(Hjw(1,:)),'m','linewidth', 2),hold on
 plot(real(Hjw(2,:)),imag(Hjw(2,:)),'k','linewidth', 2),hold on
 plot(real(Hjw(3,:)),imag(Hjw(3,:)),'b','linewidth', 2),hold on
@@ -230,7 +229,7 @@ grid on, grid minor
 axis image
 
 % NYQUIST - 3D
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -263,7 +262,7 @@ end
 %% MODILIDADE
 Hm = 1i*w.*Hjw;
 % ABS(\dot{X}/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -289,7 +288,7 @@ for st=1:3
 end
 
 % ANGULO(\dot{X}/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -309,7 +308,7 @@ for st=1:3
 end
 
 % ABS(\dot{X}/F) PELA FREQUENCIA E ANGULO(\dot{X}/F) PELA FREQUENCIA - JUNTOS
-figure(figc); figc = figc + 1;
+figure
 subplot(1,2,1)
 loglog(f,abs(Hm(1,:)),'m','linewidth', 1.5), hold on % Zeta = 0.1
 loglog(f,abs(Hm(2,:)),'k','linewidth', 1.5), hold on % Zeta = 0.01
@@ -335,7 +334,7 @@ grid on, grid minor, xlim([0 50]), ylim([-95 95])
 set(gca,'fontsize',18,'Ytick',[-90 -45 0 45 90],'XColor','k','YColor','k','ZColor','k','GridColor','k')
 
 % REAL(\dot{X}/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st == 1
@@ -360,7 +359,7 @@ for st=1:3
 end
 
 % IM(\dot{X}/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st == 1
@@ -385,7 +384,7 @@ for st=1:3
 end
 
 % REAL(\dot{X}/F) PELA FREQUENCIA E IM(\dot{X}/F) PELA FREQUENCIA - JUNTOS
-figure(figc); figc = figc + 1;
+figure
 subplot(1,2,1)
 plot(f,real(Hm(1,:)),'m','linewidth', 1.7), hold on % Zeta = 0.1
 plot(f,real(Hm(2,:)),'k','linewidth', 1.7), hold on % Zeta = 0.01
@@ -408,7 +407,7 @@ legend(['$Im\{\dot{X}/F\}, \, \zeta = ', num2str(z(1)),' $'],['$Im\{\dot{X}/F\},
 grid on, grid minor
 
 % NYQUIST - SEPARADOS
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -427,7 +426,7 @@ for st=1:3
 end
 
 % NYQUIST - JUNTOS
-figure(figc); figc = figc + 1;
+figure
 plot(real(Hm(1,:)),imag(Hm(1,:)),'m','linewidth', 2),hold on
 plot(real(Hm(2,:)),imag(Hm(2,:)),'k','linewidth', 2),hold on
 plot(real(Hm(3,:)),imag(Hm(3,:)),'b','linewidth', 2),hold on
@@ -439,7 +438,7 @@ grid on, grid minor
 axis image
 
 % NYQUIST - 3D
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -472,7 +471,7 @@ end
 %% ACELERANCIA
 Ha = -w.^2.*Hjw;
 % ABS(\ddot{X}/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -498,7 +497,7 @@ for st=1:3
 end
 
 % ANGULO(\ddot{X}/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -518,7 +517,7 @@ for st=1:3
 end
 
 % ABS(\ddot{X}/F) PELA FREQUENCIA E ANGULO(\ddot{X}/F) PELA FREQUENCIA - JUNTOS
-figure(figc); figc = figc + 1;
+figure
 subplot(1,2,1)
 loglog(f,abs(Ha(1,:)),'m','linewidth', 1.5), hold on % Zeta = 0.1
 loglog(f,abs(Ha(2,:)),'k','linewidth', 1.5), hold on % Zeta = 0.01
@@ -544,7 +543,7 @@ grid on, grid minor, xlim([0 50]), ylim([-5 185])
 set(gca,'fontsize',18,'Ytick',[0 45 90 135 180],'XColor','k','YColor','k','ZColor','k','GridColor','k')
 
 % REAL(\ddot{X}/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st == 1
@@ -569,7 +568,7 @@ for st=1:3
 end
 
 % IM(\ddot{X}/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st == 1
@@ -594,7 +593,7 @@ for st=1:3
 end
 
 % REAL(\ddot{X}/F) PELA FREQUENCIA E IM(\ddot{X}/F) PELA FREQUENCIA - JUNTOS
-figure(figc); figc = figc + 1;
+figure
 subplot(1,2,1)
 plot(f,real(Ha(1,:)),'m','linewidth', 1.7), hold on % Zeta = 0.1
 plot(f,real(Ha(2,:)),'k','linewidth', 1.7), hold on % Zeta = 0.01
@@ -617,7 +616,7 @@ legend(['$Im\{\ddot{X}/F\}, \, \zeta = ', num2str(z(1)),' $'],['$Im\{\ddot{X}/F\
 grid on, grid minor
 
 % NYQUIST - SEPARADOS
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -636,7 +635,7 @@ for st=1:3
 end
 
 % NYQUIST - JUNTOS
-figure(figc); figc = figc + 1;
+figure
 plot(real(Ha(1,:)),imag(Ha(1,:)),'m','linewidth', 2),hold on
 plot(real(Ha(2,:)),imag(Ha(2,:)),'k','linewidth', 2),hold on
 plot(real(Ha(3,:)),imag(Ha(3,:)),'b','linewidth', 2),hold on
@@ -648,7 +647,7 @@ grid on, grid minor
 axis image
 
 % NYQUIST - 3D
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(1,3,st)
     if st==1

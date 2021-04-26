@@ -19,7 +19,6 @@ fs = 1/dt; %freq de amostragem [Hz]
 t = 0:dt:200; %[s]
 f = 0:df:(fs/2); %[Hz]
 w = 2*pi*f; %[rad/s]
-figc = 1; % contador de figuras
 
 %% PARAMETROS DO SISTEMA
 wn = sqrt(k/m); %[rad/s]
@@ -30,18 +29,18 @@ c = z*2*sqrt(k*m); %[N.s/m]
 %% IRF [h(t)]
 ht = []; Hjw = []; env = []; % Criando os vetores
 for st=1:3
-    ht = [ht; 1/(m*wd(st))*exp(-z(st)*wn*t).*sin(wd(st)*t)]; %#ok<*AGROW>
-    Hjw = [Hjw; 1./(k-w.^2*m+1i*w*c(st))];
-    env = [env; 1/(m*wd(st))*exp(-z(st)*wn*t)];
+    ht(st,:) = 1/(m*wd(st))*exp(-z(st)*wn*t).*sin(wd(st)*t); %#ok<*SAGROW>
+    Hjw(st,:) = 1./(k-w.^2*m+1i*w*c(st));
+    env(st,:) = 1/(m*wd(st))*exp(-z(st)*wn*t);
 end
 
 %% TRANSFORMADA DE FOURIER DE h(t)
 % ESCOLHA DOS PERIODOS DE AMOSTRAGEM PARA CADA ZETA
-T_am = [160 40 10]; %[s]
-DiscFreq = 1./T_am;
+Ts = [160 40 10]; %[s]
+DiscFreq = 1./Ts;
 
 % ABS(X/F) PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     subplot(2,3,st)
     if st==1
@@ -91,7 +90,7 @@ for st=1:3
 end
 
 %% DOUBLE-SIDED SPECTRUM [DSS] PELA FREQUENCIA
-figure(figc); figc = figc + 1;
+figure
 for st=1:3
     DSfreq = 0:df:fs;
     DSSHjw = [Hjw(st,:) fliplr(conj(Hjw(st,:)))];
@@ -146,7 +145,7 @@ for st=1:3
     set(gca,'fontsize',18,'Ytick',[-360 -270 -180 -90 0],'XColor','k','YColor','k','ZColor','k','GridColor','k')
 end
 %% PLOT DE h(t) E DA IFT[H(jw)] PELO TEMPO
-figure(figc); figc = figc + 1;
+figure
     DStime = 0:1/fs:1/df;
 for st=1:3
     DSSHjw = [Hjw(st,:) fliplr(conj(Hjw(st,:)))];
