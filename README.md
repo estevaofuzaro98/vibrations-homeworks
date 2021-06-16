@@ -1,4 +1,7 @@
 # Mechanical Vibrations Homeworks
-Mechanical Vibrations Homeworks - PPGEM
 
-magnifyplot is used on Homework_2.m
+UNESP - FEIS - PPGEM
+
+*Estevão Fuzaro de Almeida<br/>
+  Mechanical Engineer<br/>
+  Master's Student*
