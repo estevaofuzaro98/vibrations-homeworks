@@ -94,16 +94,16 @@ set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.6])
 for st=1:3
     subplot(1,3,st)
     if st==1
-        semilogx(f,rad2deg(angle(Hjw(st,:))),'m','linewidth', 2), hold on
+        semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'m','linewidth', 2), hold on
         xlim([1e0 25])
     elseif st==2
-        semilogx(f,rad2deg(angle(Hjw(st,:))),'k','linewidth', 2), hold on
+        semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'k','linewidth', 2), hold on
         xlim([1e0 50])
     else
-        semilogx(f,rad2deg(angle(Hjw(st,:))),'b','linewidth', 2), hold on
+        semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'b','linewidth', 2), hold on
         xlim([1e0 1e2])
     end
-    semilogx(fEst(st,:),rad2deg(angle(HjwEst(st,:))),'--r','linewidth', 2), hold on
+    semilogx(fEst(st,:),rad2deg(unwrap(angle(HjwEst(st,:)))),'--r','linewidth', 2), hold on
     xlabel('$f$ [Hz]')
     legend({'$H(j\omega)$ Analytic','$H(j\omega)$ Estimated'},'Location','southwest','fontsize',lgndsize)
     ylabel('Receptance $\phi$ [$^{\circ}$]')
@@ -136,7 +136,7 @@ end
 
 %% EXCITACAO RANDOMICA f(t) COM RUIDO
 ft = randn(1,length(t));
-ft = ft + sqrt(1/(10^(SNR/10)))*var(ft)*randn(1,length(t));
+ft = ft + sqrt(1/(10^(SNR/10))*var(ft))*randn(1,length(t));
 % CALCULO DE x(t) PELA CONVOLUCAO
 xt = [];
 for st=1:3
@@ -192,16 +192,16 @@ set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.6])
 for st=1:3
     subplot(1,3,st)
     if st==1
-        semilogx(f,rad2deg(angle(Hjw(st,:))),'m','linewidth', 2), hold on
+        semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'m','linewidth', 2), hold on
         xlim([1e0 25])
     elseif st==2
-        semilogx(f,rad2deg(angle(Hjw(st,:))),'k','linewidth', 2), hold on
+        semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'k','linewidth', 2), hold on
         xlim([1e0 50])
     else
-        semilogx(f,rad2deg(angle(Hjw(st,:))),'b','linewidth', 2), hold on
+        semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'b','linewidth', 2), hold on
         xlim([1e0 1e2])
     end
-    semilogx(fEst(st,:),rad2deg(angle(HjwEst(st,:))),'--r','linewidth', 2), hold on
+    semilogx(fEst(st,:),rad2deg(unwrap(angle(HjwEst(st,:)))),'--r','linewidth', 2), hold on
     xlabel('$f$ [Hz]')
     legend({'$H(j\omega)$ Analytic','$H(j\omega)$ Estimated'},'Location','southwest','fontsize',lgndsize)
     ylabel('Receptance $\phi$ [$^{\circ}$]')
@@ -241,7 +241,7 @@ for st=1:3
     xtAux = [xtAux; x_aux(1:length(ft))]; %#ok<*AGROW>
 end
 for st=1:3
-    xt(st,:) = xtAux(st,1:length(t)) + sqrt(1/(10^(SNR/10)))*var(xtAux(st,:))*randn(1,length(t));
+    xt(st,:) = xtAux(st,1:length(t)) + sqrt(1/(10^(SNR/10))*var(xtAux(st,:)))*randn(1,length(t));
 end
 % ESTIMANDO H(jw) E PLOTANDO AS FRF's
 N = round(length(t));
@@ -292,16 +292,16 @@ set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.6])
 for st=1:3
     subplot(1,3,st)
     if st==1
-        semilogx(f,rad2deg(angle(Hjw(st,:))),'m','linewidth', 2), hold on
+        semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'m','linewidth', 2), hold on
         xlim([1e0 25])
     elseif st==2
-        semilogx(f,rad2deg(angle(Hjw(st,:))),'k','linewidth', 2), hold on
+        semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'k','linewidth', 2), hold on
         xlim([1e0 50])
     else
-        semilogx(f,rad2deg(angle(Hjw(st,:))),'b','linewidth', 2), hold on
+        semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'b','linewidth', 2), hold on
         xlim([1e0 1e2])
     end
-    semilogx(fEst(st,:),rad2deg(angle(HjwEst(st,:))),'--r','linewidth', 2), hold on
+    semilogx(fEst(st,:),rad2deg(unwrap(angle(HjwEst(st,:)))),'--r','linewidth', 2), hold on
     xlabel('$f$ [Hz]')
     legend({'$H(j\omega)$ Analytic','$H(j\omega)$ Estimated'},'Location','southwest','fontsize',lgndsize)
     ylabel('Receptance $\phi$ [$^{\circ}$]')
