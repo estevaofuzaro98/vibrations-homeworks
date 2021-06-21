@@ -131,6 +131,7 @@ for st=1:3
     ylabel('$\gamma^2$')
     title(['$\zeta = ', num2str(z(st)), ' $'],'FontWeight','normal')
     grid on, grid minor
+    ylim([0 1])
     set(gca,'fontsize',txtsize,'Xtick',[1e-1 1e0 1e1 1e2 1e3],'XColor','k','YColor','k','ZColor','k','GridColor','k')
 end
 
@@ -229,6 +230,7 @@ for st=1:3
     ylabel('$\gamma^2$')
     title(['$\zeta = ', num2str(z(st)), ' $'],'FontWeight','normal')
     grid on, grid minor
+    ylim([0 1])
     set(gca,'fontsize',txtsize,'Xtick',[1e-1 1e0 1e1 1e2 1e3],'XColor','k','YColor','k','ZColor','k','GridColor','k')
 end
 
@@ -329,5 +331,6 @@ for st=1:3
     ylabel('$\gamma^2$')
     title(['$\zeta = ', num2str(z(st)), ' $'],'FontWeight','normal')
     grid on, grid minor
+    ylim([0 1])
     set(gca,'fontsize',txtsize,'Xtick',[1e-1 1e0 1e1 1e2 1e3],'XColor','k','YColor','k','ZColor','k','GridColor','k')
 end

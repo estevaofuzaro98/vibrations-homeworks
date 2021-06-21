@@ -67,14 +67,14 @@ figure
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.6])
 for st=1:2
     subplot(1,2,st)
-    semilogx(f,rad2deg(angle(Hjw(st,:))),'r','linewidth', 2), hold on
-    semilogx(fEst(st,:),rad2deg(angle(HjwEst(st,:))),'--k','linewidth', 2), hold on
+    semilogx(f,rad2deg(unwrap(angle(Hjw(st,:)))),'r','linewidth', 2), hold on
+    semilogx(fEst(st,:),rad2deg(unwrap(angle(HjwEst(st,:)))),'--k','linewidth', 2), hold on
     xlabel('$f$ [Hz]')
     legend({'$H(j\omega)$ Analytic','$H(j\omega)$ Estimated'},'Location','southwest','fontsize',lgndsize)
     ylabel('Receptance $\phi$ [$^{\circ}$]')
     title(['$\zeta = ', num2str(z(st)), ' $'],'FontWeight','normal')
     grid on, grid minor
-    xlim([1e-1 Fs/2]), ylim([-180 5])
+    xlim([1e-1 1e2]), ylim([-180 5])
     set(gca,'fontsize',txtsize,'Ytick',[-180 -135 -90 -45 0],'XColor','k','YColor','k','ZColor','k','GridColor','k')
 end
 

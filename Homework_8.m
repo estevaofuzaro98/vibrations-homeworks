@@ -86,7 +86,7 @@ set(gca,'fontsize',txtsize-8,'Xtick',[1e-2 1e-1 1e0 1e1 1e2 1e3],'XColor','k','Y
 %% EXCITACAO RANDOMICA x(t)
 x = randn(1,length(t));
 
-%% CALCULO DE y(t) USANDO H(jw)
+%% CALCULO DE xs E xa
 X = fft(x)*dt;
 Xs = Hs.*X;
 Xa = Ha.*X;
@@ -123,6 +123,12 @@ legend({'$H_s(j\omega)$ Analytic','$H_s(j\omega)$ Estimated'},'Location','southw
 grid on, grid minor
 xlim([1e-1 Fs/2])
 set(gca,'fontsize',txtsize,'Ytick',[1e-8 1e-7 1e-6 1e-5 1e-4 1e-3],'XColor','k','YColor','k','ZColor','k','GridColor','k')
+axes('Position',[.21 .39 .11 .33]); box on
+semilogx(f,abs(Hs),'r','linewidth',2), hold on, grid on
+semilogx(fsEst,abs(HsEst),'k--','linewidth', 2), hold on
+xlim([10 20]); ylim([2 5]*1e-4);
+grid on, grid minor
+set(gca,'fontsize',txtsize-8,'Xtick',[1e-2 1e-1 1e0 1e1 1e2 1e3],'XColor','k','YColor','k','ZColor','k','GridColor','k')
 subplot(1,2,2) %Ha
 loglog(f,abs(Ha),'r','linewidth', 2), hold on
 loglog(faEst,abs(HaEst),'--k','linewidth', 2), hold on
@@ -132,6 +138,13 @@ legend({'$H_a(j\omega)$ Analytic','$H_a(j\omega)$ Estimated'},'Location','southw
 grid on, grid minor
 xlim([1e-1 Fs/2])
 set(gca,'fontsize',txtsize,'Ytick',[1e-10 1e-9 1e-8 1e-7 1e-6 1e-5 1e-4 1e-3],'XColor','k','YColor','k','ZColor','k','GridColor','k')
+axes('Position',[.63 .38 .11 .33]); box on
+semilogx(f,abs(Ha),'r','linewidth',2), hold on, grid on
+semilogx(faEst,abs(HaEst),'k--','linewidth', 2), hold on
+xlim([10 20]); ylim([2 15]*1e-4);
+grid on, grid minor
+set(gca,'fontsize',txtsize-8,'Xtick',[1e-2 1e-1 1e0 1e1 1e2 1e3],'XColor','k','YColor','k','ZColor','k','GridColor','k')
+
 
 % ANGULO(X/F) PELA FREQUENCIA
 figure
