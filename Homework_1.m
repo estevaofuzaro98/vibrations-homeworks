@@ -8,8 +8,8 @@ clc; clear all; close all; format long; %#ok<CLALL>
 set(groot,'defaultAxesTickLabelInterpreter','latex'); 
 set(groot,'defaultLegendInterpreter','latex');
 set(groot,'defaultTextInterpreter','latex');
-txtsize = 28;
-lgndsize = 22;
+txtsize = 26;
+lgndsize = 20;
 
 %% VARIAVEIS
 m = 1;                  % Massa [kg]
@@ -22,7 +22,7 @@ w = 2*pi*f;             % Freq. Angular [rad/s]
 %% PARAMETROS DO SISTEMA
 wn = sqrt(k/m);         % Freq. Natural [rad/s]
 wd = wn*sqrt(1-z.^2);   % Freq. Nat. Amortecida [rad/s]
-c = z*2*sqrt(k*m);      % Amortecimento [N.s/m]
+c = 2*z*sqrt(k*m);      % Amortecimento [N.s/m]
 
 %% IRF [h(t)] COM ENVELOPE E FRF [H(jw)] - RECEPTANCIA
 ht = []; Hjw = []; env = []; % Pré-alocando os vetores
@@ -34,7 +34,7 @@ end
 
 %% h(t) COM ENVELOPE PELO TEMPO 
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.6])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -64,7 +64,7 @@ end
 %% RECEPTANCIA
 % ABS(X/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -88,7 +88,7 @@ end
 
 % ANGULO(X/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -109,7 +109,7 @@ end
 
 % ABS(X/F) PELA FREQUENCIA E ANGULO(X/F) PELA FREQUENCIA - JUNTOS
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.8])
 subplot(1,2,1)
 loglog(f,abs(Hjw(1,:)),'m','linewidth', 2), hold on % Zeta = 0.1
 loglog(f,abs(Hjw(2,:)),'k','linewidth', 2), hold on % Zeta = 0.01
@@ -135,7 +135,7 @@ set(gca,'fontsize',txtsize,'Ytick',[-180 -135 -90 -45 0],'XColor','k','YColor','
 
 % REAL(X/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st == 1
@@ -158,21 +158,21 @@ end
 
 % IM(X/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st == 1
         plot(f,imag(Hjw(st,:)),'m','linewidth', 2)
         axis([0 30 -0.00055 0])
-        set(gca,'YTick',[-0.00055:0.00005:0]) %#ok<*NBRAK>
+        set(gca,'YTick',[-0.00055:0.0001:0]) %#ok<*NBRAK>
     elseif st == 2
         plot(f,imag(Hjw(st,:)),'k','linewidth', 2)
         axis([0 30 -0.0055 0])
-        set(gca,'YTick',[-0.0055:0.0005:0])
+        set(gca,'YTick',[-0.0055:0.001:0])
     else
         plot(f,imag(Hjw(st,:)),'b','linewidth', 2)
         axis([0 30 -0.055 0])
-        set(gca,'YTick',[-0.055:0.005:0])
+        set(gca,'YTick',[-0.055:0.01:0])
     end
     xlabel('$f$ [Hz]')
     ylabel('$Im\{\frac{X}{F}\}$')
@@ -184,7 +184,7 @@ end
 
 % REAL(X/F) PELA FREQUENCIA E IM(X/F) PELA FREQUENCIA - JUNTOS
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.8])
 subplot(1,2,1)
 plot(f,real(Hjw(1,:)),'m','linewidth', 2), hold on % Zeta = 0.1
 plot(f,real(Hjw(2,:)),'k','linewidth', 2), hold on % Zeta = 0.01
@@ -208,7 +208,7 @@ set(gca,'fontsize',txtsize,'XColor','k','YColor','k','ZColor','k','GridColor','k
 
 % NYQUIST - SEPARADOS
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -241,7 +241,7 @@ axis image
 
 % NYQUIST - 3D
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -266,7 +266,7 @@ for st=1:3
     xlabel('$f$ [Hz]')
     ylabel('$Re\{\frac{X}{F}\}$')
     zlabel('$Im\{\frac{X}{F}\}$')
-    set(gca,'fontsize',txtsize,'YDir','reverse','XColor','k','YColor','k','ZColor','k','GridColor','k')
+    set(gca,'fontsize',txtsize-5,'YDir','reverse','XColor','k','YColor','k','ZColor','k','GridColor','k')
     title(['$\zeta = ', num2str(z(st)),' $'],'FontWeight','normal')
     grid on, grid minor
 end
@@ -275,7 +275,7 @@ end
 Hm = 1i*w.*Hjw;
 % ABS(\dot{X}/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -302,7 +302,7 @@ end
 
 % ANGULO(\dot{X}/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -323,7 +323,7 @@ end
 
 % ABS(\dot{X}/F) PELA FREQUENCIA E ANGULO(\dot{X}/F) PELA FREQUENCIA - JUNTOS
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.8])
 subplot(1,2,1)
 loglog(f,abs(Hm(1,:)),'m','linewidth', 2), hold on % Zeta = 0.1
 loglog(f,abs(Hm(2,:)),'k','linewidth', 2), hold on % Zeta = 0.01
@@ -350,47 +350,47 @@ set(gca,'fontsize',txtsize,'Ytick',[-90 -45 0 45 90],'XColor','k','YColor','k','
 
 % REAL(\dot{X}/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st == 1
         plot(f,real(Hm(st,:)),'m','linewidth', 2)
         axis([0 40 0 0.055])
-        set(gca,'XTick',[0 10 20 30 40],'YTick',[0:0.005:0.055])
+        set(gca,'XTick',[0 10 20 30 40],'YTick',[0:0.01:0.055])
     elseif st == 2
         plot(f,real(Hm(st,:)),'k','linewidth', 2)
         axis([0 40 0 0.55])
-        set(gca,'XTick',[0 10 20 30 40],'YTick',[0:0.05:0.55])
+        set(gca,'XTick',[0 10 20 30 40],'YTick',[0:0.1:0.55])
     else
         plot(f,real(Hm(st,:)),'b','linewidth', 2)
         axis([0 40 0 5.5])
-        set(gca,'XTick',[0 10 20 30 40],'YTick',[0:0.5:5.5])
+        set(gca,'XTick',[0 10 20 30 40],'YTick',[0:1:5.5])
     end
     xlabel('$f$ [Hz]')
     ylabel('$Re\{\frac{\dot{X}}{F}\}$')
     title(['$\zeta = ', num2str(z(st)),' $'],'FontWeight','normal')
-    legend('$Re\{\frac{\dot{X}}{F}\}$','Location','southwest','fontsize',lgndsize)
+    legend('$Re\{\frac{\dot{X}}{F}\}$','Location','northeast','fontsize',lgndsize)
     grid on, grid minor
     set(gca,'fontsize',txtsize,'XColor','k','YColor','k','ZColor','k','GridColor','k')
 end
 
 % IM(\dot{X}/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st == 1
         plot(f,imag(Hm(st,:)),'m','linewidth', 2)
         axis([0 40 -0.03 0.03])
-        set(gca,'YTick',[-0.03:0.005:0.03])
+        set(gca,'YTick',[-0.03:0.01:0.03])
     elseif st == 2
         plot(f,imag(Hm(st,:)),'k','linewidth', 2)
         axis([0 40 -0.3 0.3])
-        set(gca,'YTick',[-0.3:0.05:0.3])
+        set(gca,'YTick',[-0.3:0.1:0.3])
     else
         plot(f,imag(Hm(st,:)),'b','linewidth', 2)
         axis([0 40 -3 3])
-        set(gca,'YTick',[-3:0.5:3])
+        set(gca,'YTick',[-3:1:3])
     end
     xlabel('$f$ [Hz]')
     ylabel('$Im\{\frac{\dot{X}}{F}\}$')
@@ -402,7 +402,7 @@ end
 
 % REAL(\dot{X}/F) PELA FREQUENCIA E IM(\dot{X}/F) PELA FREQUENCIA - JUNTOS
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.8])
 subplot(1,2,1)
 plot(f,real(Hm(1,:)),'m','linewidth', 2), hold on % Zeta = 0.1
 plot(f,real(Hm(2,:)),'k','linewidth', 2), hold on % Zeta = 0.01
@@ -426,7 +426,7 @@ grid on, grid minor
 
 % NYQUIST - SEPARADOS
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -459,7 +459,7 @@ axis image
 
 % NYQUIST - 3D
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -484,7 +484,7 @@ for st=1:3
     xlabel('$f$ [Hz]')
     ylabel('$Re\{\frac{\dot{X}}{F}\}$')
     zlabel('$Im\{\frac{\dot{X}}{F}\}$')
-    set(gca,'fontsize',txtsize,'YDir','reverse','XColor','k','YColor','k','ZColor','k','GridColor','k')
+    set(gca,'fontsize',txtsize-5,'YDir','reverse','XColor','k','YColor','k','ZColor','k','GridColor','k')
     title(['$\zeta = ', num2str(z(st)),' $'],'FontWeight','normal')
     grid on, grid minor
 end
@@ -493,7 +493,7 @@ end
 Ha = -w.^2.*Hjw;
 % ABS(\ddot{X}/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -520,7 +520,7 @@ end
 
 % ANGULO(\ddot{X}/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -541,7 +541,7 @@ end
 
 % ABS(\ddot{X}/F) PELA FREQUENCIA E ANGULO(\ddot{X}/F) PELA FREQUENCIA - JUNTOS
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.8])
 subplot(1,2,1)
 loglog(f,abs(Ha(1,:)),'m','linewidth', 2), hold on % Zeta = 0.1
 loglog(f,abs(Ha(2,:)),'k','linewidth', 2), hold on % Zeta = 0.01
@@ -568,21 +568,21 @@ set(gca,'fontsize',txtsize,'Ytick',[0 45 90 135 180],'XColor','k','YColor','k','
 
 % REAL(\ddot{X}/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st == 1
         plot(f,real(Ha(st,:)),'m','linewidth', 2)
         axis([0 40 -3 3])
-        set(gca,'XTick',[0 10 20 30 40],'YTick',[-3:0.5:3])
+        set(gca,'XTick',[0 10 20 30 40],'YTick',[-3:1:3])
     elseif st == 2
         plot(f,real(Ha(st,:)),'k','linewidth', 2)
         axis([0 40 -30 30])
-        set(gca,'XTick',[0 10 20 30 40],'YTick',[-30:5:30])
+        set(gca,'XTick',[0 10 20 30 40],'YTick',[-30:10:30])
     else
         plot(f,real(Ha(st,:)),'b','linewidth', 2)
         axis([0 40 -300 300])
-        set(gca,'XTick',[0 10 20 30 40],'YTick',[-300:50:300])
+        set(gca,'XTick',[0 10 20 30 40],'YTick',[-300:100:300])
     end
     xlabel('$f$ [Hz]')
     ylabel('$Re\{\frac{\ddot{X}}{F}\}$')
@@ -594,21 +594,21 @@ end
 
 % IM(\ddot{X}/F) PELA FREQUENCIA
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st == 1
         plot(f,imag(Ha(st,:)),'m','linewidth', 2)
         axis([0 40 -0.2 5.2])
-        set(gca,'YTick',[0:0.5:5])
+        set(gca,'YTick',[0:1:5])
     elseif st == 2
         plot(f,imag(Ha(st,:)),'k','linewidth', 2)
         axis([0 40 -2 52])
-        set(gca,'YTick',[0:5:50])
+        set(gca,'YTick',[0:10:50])
     else
         plot(f,imag(Ha(st,:)),'b','linewidth', 2)
         axis([0 40 -20 520])
-        set(gca,'YTick',[0:50:500])
+        set(gca,'YTick',[0:100:500])
     end
     xlabel('$f$ [Hz]','Interpreter','Latex')
     ylabel('$Im\{\frac{\ddot{X}}{F}\}$')
@@ -620,7 +620,7 @@ end
 
 % REAL(\ddot{X}/F) PELA FREQUENCIA E IM(\ddot{X}/F) PELA FREQUENCIA - JUNTOS
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.8])
 subplot(1,2,1)
 plot(f,real(Ha(1,:)),'m','linewidth', 2), hold on % Zeta = 0.1
 plot(f,real(Ha(2,:)),'k','linewidth', 2), hold on % Zeta = 0.01
@@ -644,7 +644,7 @@ grid on, grid minor
 
 % NYQUIST - SEPARADOS
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -677,7 +677,7 @@ axis image
 
 % NYQUIST - 3D
 figure
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+set(gcf,'Units','Normalized','OuterPosition',[0 0 1 0.7])
 for st=1:3
     subplot(1,3,st)
     if st==1
@@ -702,7 +702,7 @@ for st=1:3
     xlabel('$f$ [Hz]')
     ylabel('$Re\{\frac{\ddot{X}}{F}\}$')
     zlabel('$Im\{\frac{\ddot{X}}{F}\}$')
-    set(gca,'fontsize',txtsize,'YDir','reverse','XColor','k','YColor','k','ZColor','k','GridColor','k')
+    set(gca,'fontsize',txtsize-5,'YDir','reverse','XColor','k','YColor','k','ZColor','k','GridColor','k')
     title(['$\zeta = ', num2str(z(st)),' $'],'FontWeight','normal')
     grid on, grid minor
 end

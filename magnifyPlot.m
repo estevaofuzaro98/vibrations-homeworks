@@ -1,4 +1,4 @@
-function magnifyPlot(xlm,ylm,pos,lwid,showAxisLabels,XTicks,YTicks)
+function magnifyPlot(xlm,ylm,pos,lwid,showAxisLabels,XTicks,YTicks,lgndsize)
 % This function magnifies a specified rectangular area [xlm, ylm]
 % in the current figure,
 % and plots the magnified area on the same figure at axis defined by
@@ -42,7 +42,7 @@ v = [xlm(1) ylm(1); ...
 patch('Faces',[1,2,3,4],'Vertices',v,...
     'Edgecolor','k',...
     'Facecolor','k',...
-    'Facealpha',0.05,...
+    'Facealpha',0.00,...
     'Linewidth',0.2,'HandleVisibility','off');% plot rectangle
 axes('pos',pos) % Create axis
 for ii = 1:numel(X) % plot each child
@@ -51,7 +51,7 @@ for ii = 1:numel(X) % plot each child
         hold on;grid on; grid minor;
 end
 xlim(xlm); ylim(ylm); % set limits of zoomed plot
-set(gca,'XColor','k', 'YColor','k','fontsize',15);
+set(gca,'XColor','k', 'YColor','k','fontsize',lgndsize);
 set(gca, 'LineWidth',1.2);
 grid on; grid minor;
 if ~showAxisLabels % turn on/off labels
